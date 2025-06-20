@@ -1,5 +1,5 @@
 # Lista-S206
-Este projeto utiliza o Cypress para realizar testes automatizados. O Cypress é uma ferramenta que facilita a verificação de casos de teste, garantindo a qualidade e funcionalidade do sistema. Com ele, é possível simular interações do usuário e validar comportamentos esperados de forma eficiente.
+Este projeto utiliza o Postman para realizar testes automatizados. O Postman é uma ferramenta que facilita a verificação de casos de teste, garantindo a qualidade e funcionalidade do sistema. Com ele, é possível simular requisições HTTP e validar comportamentos esperados de forma eficiente.
 # Sobre os projetos
 
 Verifica cenários:
