@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "bc17b316-93d9-4e50-a2f1-1652adba9be9",
+		"name": "CollectionPostmanProjetos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45105621",
+		"_collection_link": "https://eduardoaugustofonsecarezende.postman.co/workspace/Eduardo-Augusto-Fonseca-Rezende~255547bc-672d-4064-884e-fc7ec4ee2122/collection/45105621-bc17b316-93d9-4e50-a2f1-1652adba9be9?action=share&source=collection_link&creator=45105621"
+	},
+	"item": [
+		{
+			"name": "Cookie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"pm.environment.set('Cookie',response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}get-csrf-token",
+					"host": [
+						"{{BaseURL}}get-csrf-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"gustavom@\",\r\n  \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}login",
+					"host": [
+						"{{BaseURL}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checando todos os times",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 - Mostrando times\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/all",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checando se um time que não existe da 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 404 - O time não deve existir\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/1",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criando um time com aluno que não existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 500 - aluno não existe\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/create?titulo=ProjetoX&orientador_email=jonas@gmail.com&status=Ativo&paralela=Paralela1&email_aluno1=sadasfasfasf@ges.inatel.br\n",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"create"
+					],
+					"query": [
+						{
+							"key": "titulo",
+							"value": "ProjetoX"
+						},
+						{
+							"key": "orientador_email",
+							"value": "jonas@gmail.com"
+						},
+						{
+							"key": "status",
+							"value": "Ativo"
+						},
+						{
+							"key": "paralela",
+							"value": "Paralela1"
+						},
+						{
+							"key": "email_aluno1",
+							"value": "sadasfasfasf@ges.inatel.br\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criando um time com aluno que existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 - Time cadastrado com sucesso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/create?titulo=ProjetoNovissimo&orientador_email=jonas@gmail.com&status=Ativo&paralela=Outro&email_aluno1=gato@gmail.com",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"create"
+					],
+					"query": [
+						{
+							"key": "titulo",
+							"value": "ProjetoNovissimo"
+						},
+						{
+							"key": "orientador_email",
+							"value": "jonas@gmail.com"
+						},
+						{
+							"key": "status",
+							"value": "Ativo"
+						},
+						{
+							"key": "paralela",
+							"value": "Outro"
+						},
+						{
+							"key": "email_aluno1",
+							"value": "gato@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update no time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 - Atualizado com sucesso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/update?numgrupo=1313&titulo=ProjetoNovissimoo&orientador_email=jonas@gmail.com&status=Em espera&paralela=Outro&email_aluno1=gato@gmail.com",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"update"
+					],
+					"query": [
+						{
+							"key": "numgrupo",
+							"value": "1313"
+						},
+						{
+							"key": "titulo",
+							"value": "ProjetoNovissimoo"
+						},
+						{
+							"key": "orientador_email",
+							"value": "jonas@gmail.com"
+						},
+						{
+							"key": "status",
+							"value": "Em espera"
+						},
+						{
+							"key": "paralela",
+							"value": "Outro"
+						},
+						{
+							"key": "email_aluno1",
+							"value": "gato@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 - Deletado com sucesso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BaseURL}}api/v1/Time/delete?numgrupo=1313",
+					"host": [
+						"{{BaseURL}}api"
+					],
+					"path": [
+						"v1",
+						"Time",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "numgrupo",
+							"value": "1313"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
