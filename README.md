@@ -26,12 +26,12 @@ Verifica cenários:
 
 Verifica cenários:
 
+- Mostra todos os Alunos
 - Criar aluno com sucesso.
-- Criar aluno com sucesso, faz logout e loga como aluno.
-- Tenta criar aluno sem usuario.
-- Tenta criar aluno sem senha.
-- Tenta criar aluno sem email.
-- Tenta criar aluno sem passar nada.
+- Get um Aluno.
+- Update um aluno.
+- Mostra Projeto do Aluno.
+- Deleta um aluno.
 
 
 # Relatório de Testes
