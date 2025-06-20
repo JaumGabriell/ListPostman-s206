@@ -43,7 +43,7 @@ Para gerar o relatório dos testes automatizados, utilizamos o framework Cypress
 Para instalação do reporter, execute o seguinte comando no terminal:
 
 ```bash
-npm i cypress-mochawesome-reporter
+npm i newman-reporter-htmlextra
 ```
 
 ## Execução dos Testes para Gerar o Relatório
@@ -51,5 +51,5 @@ npm i cypress-mochawesome-reporter
 Os testes foram executados utilizando o comando abaixo:
 
 ```bash
-npx cypress run --reporter mochawesome
+npx newman run path -e path -r htmlextra
 ```
