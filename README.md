@@ -4,12 +4,12 @@ Este projeto utiliza o Postman para realizar testes automatizados. O Postman é 
 
 Verifica cenários:
 
-- Criar um projeto com aluno não cadastrado.
-- Criar um projeto só com orientador.
-- Criar um projeto com sucesso.
-- Criar um projeto que ja existe.
-- Criar um projeto e deletar.
-- Criar um projeto, deletar intengrantes e salvar projeto.
+- Checa todos os projetos
+- Checa se um time que não existe da 404
+- Cria um projeto com um aluno que não existe
+- Cria um projeto com um aluno que existe
+- Update no time -> passar o num do grupo como parametro
+- Deleta time -> passar o num do grupo como parametro
 
 # Sobre o orientador
 
