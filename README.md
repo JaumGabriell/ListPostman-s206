@@ -36,7 +36,7 @@ Verifica cenários:
 
 # Relatório de Testes
 
-Para gerar o relatório dos testes automatizados, utilizamos o framework Newman integrado com o reporter newman htmlextra.
+Para gerar o relatório dos testes do Postman automatizados, utilizamos o framework Newman integrado com o reporter htmlextra.
 
 # Instalação do Reporter
 
